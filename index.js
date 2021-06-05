@@ -6,6 +6,7 @@
 import http from 'http'
 import querystring from 'querystring'
 import { StringDecoder } from 'string_decoder'
+import config from './config.js'
 
 const host = 'http://localhost'
 const port = 3000;
@@ -82,9 +83,9 @@ const server = http.createServer((req, res) => {
 
 })
 
-// Start the server, and have it listen on port 3000
-server.listen(3000, () => {
-    console.log('The server is listening on port 3000');
+// Start the server
+server.listen(config.port, () => {
+    console.log(`The server is listening on port ${config.port} in ${config.envName} mode`);
 })
 
 // Define handlers
