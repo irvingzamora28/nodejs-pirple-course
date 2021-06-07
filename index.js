@@ -4,15 +4,41 @@
 
 // Dependencies
 import http from 'http'
+import https from 'https'
 import querystring from 'querystring'
 import { StringDecoder } from 'string_decoder'
 import config from './config.js'
+import fs from 'fs'
 
 const host = 'http://localhost'
 const port = 3000;
 
-// The server should respond to all requests with a string
-const server = http.createServer((req, res) => {
+// Instantiate HTTP server
+const httpServer = http.createServer((req, res) => {
+    unifiedServer(req, res)
+})
+
+// Start HTTP server
+httpServer.listen(config.httpPort, () => {
+    console.log(`The server is listening on port ${config.httpPort} in ${config.envName} mode`);
+})
+
+// Instantiate HTTPS server
+let httpsServerOptions = {
+    'key': fs.readFileSync('./https/key.pem'),
+    'cert': fs.readFileSync('./https/cert.pem')
+}
+
+const httpsServer = https.createServer(httpsServerOptions, (req, res) => {
+    unifiedServer(req, res)
+})
+
+// Start HTTPS server
+httpsServer.listen(config.httpsPort, () => {
+    console.log(`The server is listening on port ${config.httpsPort} in ${config.envName} mode`);
+})
+// Server logic for both http and https
+let unifiedServer = (req, res) => {
     // Get URL and parse it
     const parsedURL = new URL(`${host}:${port}${req.url}`);
 
@@ -81,12 +107,7 @@ const server = http.createServer((req, res) => {
 
     })
 
-})
-
-// Start the server
-server.listen(config.port, () => {
-    console.log(`The server is listening on port ${config.port} in ${config.envName} mode`);
-})
+}
 
 // Define handlers
 const handlers = {}
