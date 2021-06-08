@@ -9,6 +9,22 @@ import querystring from 'querystring'
 import { StringDecoder } from 'string_decoder'
 import config from './config.js'
 import fs from 'fs'
+import _data from './lib/data.js'
+
+// TESTING
+// TODO: Delete after done testing
+// _data.create('test', 'newFile', {'foo': 'bar'}, (error) => {
+//     console.log('This is an error', error);
+// })
+// _data.read('test', 'newFile', (error, data) => {
+//     console.log('This is an error ', error, ' and this was the data ', data);
+// })
+// _data.update('test', 'newFile', {'fizz': 'buzz'}, (error) => {
+//     console.log('This is an error', error);
+// })
+_data.delete('test', 'newFile', (error, data) => {
+    console.log('This is an error ', error, ' and this was the data ', data);
+})
 
 const host = 'http://localhost'
 const port = 3000;
