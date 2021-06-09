@@ -10,6 +10,7 @@ import { StringDecoder } from 'string_decoder'
 import config from './config.js'
 import fs from 'fs'
 import _data from './lib/data.js'
+import handlers from './lib/handlers.js'
 
 // TESTING
 // TODO: Delete after done testing
@@ -125,18 +126,8 @@ let unifiedServer = (req, res) => {
 
 }
 
-// Define handlers
-const handlers = {}
-handlers.ping = (data, callback) => {
-    // Callback a http status code, and a payload object
-    callback(200)
-}
-
-handlers.notFound = (data, callback) => {
-    callback(404)
-}
-
 // Define a request router
 const router = {
-    'ping': handlers.ping
+    'ping': handlers.ping,
+    'users': handlers.users
 }
