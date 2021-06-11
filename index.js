@@ -7,10 +7,11 @@ import http from 'http'
 import https from 'https'
 import querystring from 'querystring'
 import { StringDecoder } from 'string_decoder'
-import config from './config.js'
+import config from './lib/config.js'
 import fs from 'fs'
 import _data from './lib/data.js'
 import handlers from './lib/handlers.js'
+import helpers from './lib/helpers.js'
 
 // TESTING
 // TODO: Delete after done testing
@@ -23,9 +24,9 @@ import handlers from './lib/handlers.js'
 // _data.update('test', 'newFile', {'fizz': 'buzz'}, (error) => {
 //     console.log('This is an error', error);
 // })
-_data.delete('test', 'newFile', (error, data) => {
-    console.log('This is an error ', error, ' and this was the data ', data);
-})
+// _data.delete('test', 'newFile', (error, data) => {
+//     console.log('This is an error ', error, ' and this was the data ', data);
+// })
 
 const host = 'http://localhost'
 const port = 3000;
@@ -92,7 +93,7 @@ let unifiedServer = (req, res) => {
             'queryStringObject': queryStringObject,
             'method': method,
             'headers': headers,
-            'payload': buffer
+            'payload': helpers.parseJsonToObject(buffer)
         }
 
         // Route the request to the habdler specified in the router
