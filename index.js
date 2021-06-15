@@ -28,6 +28,11 @@ import helpers from './lib/helpers.js'
 //     console.log('This is an error ', error, ' and this was the data ', data);
 // })
 
+// TODO: Delete after done testing
+// helpers.sendTwilioSms('4151234567', 'Hello!', (error) => {
+//     console.log('This was the error', error)
+// })
+
 const host = 'http://localhost'
 const port = 3000;
 
